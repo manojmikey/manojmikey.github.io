@@ -1,83 +1,1139 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manoj Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manoj Mikey | Network Engineer & Cybersecurity Enthusiast</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg2: #0f1629;
+      --surface: #131c35;
+      --surface2: #1a2540;
+      --accent: #00d4ff;
+      --accent2: #7b5ea7;
+      --green: #00ff88;
+      --orange: #ff6b35;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --border: rgba(0,212,255,0.15);
+    }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── CANVAS BG ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    .page-wrap { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(10,14,26,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-logo span { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--bg) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+    }
+
+    .nav-cta:hover { background: var(--green) !important; color: var(--bg) !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 3rem 3rem;
+      gap: 3rem;
+    }
+
+    .hero-left { flex: 1; max-width: 600px; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 0.4rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .status-dot {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero-title .line1 { color: var(--text); }
+    .hero-title .line2 {
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin: 1rem 0 2rem;
+      line-height: 1.7;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-subtitle strong { color: var(--text); }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #0099cc);
+      color: var(--bg);
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 24px rgba(0,212,255,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 36px rgba(0,212,255,0.5);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface);
+      border-color: var(--accent);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.2rem; }
+
+    /* HERO RIGHT: network diagram */
+    .hero-right {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .net-diagram {
+      width: 420px;
+      max-width: 100%;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 5rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .section-title span {
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── ABOUT ── */
+    #about { max-width: 1200px; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2.5rem;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .about-text p + p { margin-top: 1rem; }
+    .about-text strong { color: var(--text); }
+
+    .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .info-card:hover { border-color: var(--accent); }
+
+    .info-icon {
+      width: 40px; height: 40px;
+      background: rgba(0,212,255,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .info-card-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .info-card-value { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-top: 0.1rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: transparent; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 32px rgba(0,212,255,0.15);
+    }
+
+    .skill-icon { font-size: 2rem; margin-bottom: 0.6rem; display: block; }
+    .skill-name { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .skill-level {
+      margin-top: 0.6rem;
+      height: 3px;
+      background: var(--surface2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .skill-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      border-radius: 4px;
+      transition: width 1s ease;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 40px rgba(0,212,255,0.12);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .project-links { display: flex; gap: 0.5rem; }
+    .project-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .project-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1.2rem;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(0,212,255,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(0,212,255,0.15);
+    }
+
+    /* ── CERTS ── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+
+    .cert-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--green);
+    }
+
+    .cert-badge {
+      font-size: 2.5rem;
+      margin-bottom: 0.7rem;
+      display: block;
+    }
+
+    .cert-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .cert-org { font-size: 0.8rem; color: var(--muted); }
+
+    .cert-status {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .cert-status.done { background: rgba(0,255,136,0.1); color: var(--green); border: 1px solid rgba(0,255,136,0.3); }
+    .cert-status.progress { background: rgba(255,107,53,0.1); color: var(--orange); border: 1px solid rgba(255,107,53,0.3); }
+
+    /* ── CONTACT ── */
+    #contact {
+      max-width: 1200px;
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2.5rem;
+    }
+
+    .contact-info p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: var(--text);
+      padding: 0.8rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .contact-link-icon { font-size: 1.2rem; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .form-group label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+
+    .form-submit {
+      background: linear-gradient(135deg, var(--accent), #0099cc);
+      color: var(--bg);
+      padding: 0.9rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 20px rgba(0,212,255,0.25);
+    }
+
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(0,212,255,0.4);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { flex-direction: column; padding: 5rem 1.5rem 2rem; text-align: center; }
+      .hero-btns { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-right { display: none; }
+      section { padding: 3rem 1.5rem; }
+      .about-grid, .contact-wrap { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
 <body>
 
-<nav>
-    <h2>Manoj Mikey</h2>
+<canvas id="bg-canvas"></canvas>
 
-    <ul>
-        <li>Home</li>
-        <li>Skills</li>
-        <li>Projects</li>
-        <li>Contact</li>
+<div class="page-wrap">
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Manoj<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#contact" class="nav-cta">Hire Me</a></li>
     </ul>
+  </nav>
 
-    <a href="#" class="btn">Resume</a>
-</nav>
-
-<section class="hero">
-
-<div class="left">
-
-    <p class="tag">NETWORK ENGINEER</p>
-
-    <h1>
-        Network Engineer & <br>
-        Cybersecurity Enthusiast
-    </h1>
-
-    <p class="desc">
-        Building practical labs in Networking,
-        Linux, Cybersecurity, AWS and
-        Packet Analysis.
-    </p>
-
-    <div class="buttons">
-        <button>View Projects</button>
-        <button class="outline">Contact Me</button>
-    </div>
-
-</div>
-
-
-<div class="right">
-
-    <div class="card">
-
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
-
-        <h2>Manoj Kumar</h2>
-
-        <p>Linux • Networking • Security</p>
-
-        <hr>
-
-        <div class="skills">
-
-            <span>OSPF</span>
-            <span>Linux</span>
-            <span>Wireshark</span>
-            <span>AWS</span>
-            <span>Python</span>
-            <span>Firewall</span>
-
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="status-dot"></span>
+        Open to opportunities · Hyderabad, India
+      </div>
+      <h1 class="hero-title">
+        <div class="line1">Network Engineer &</div>
+        <div class="line2">Cybersecurity Enthusiast</div>
+      </h1>
+      <p class="hero-subtitle">
+        I build and document <strong>real-world labs</strong> on Networking, Linux, Cybersecurity and Cloud.<br/>
+        B.Tech ECE graduate skilled in <strong>CCNA, Kali Linux, AWS & Python automation</strong>.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View Projects</a>
+        <a href="mailto:manojmikey2002@gmail.com" class="btn-secondary">Contact Me</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">19</div>
+          <div class="stat-label">Repositories</div>
         </div>
+        <div class="stat-item">
+          <div class="stat-num">214</div>
+          <div class="stat-label">Commits</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">Top 10%</div>
+          <div class="stat-label">TryHackMe</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">CCNA</div>
+          <div class="stat-label">Certified</div>
+        </div>
+      </div>
+    </div>
 
-        <a href="#" class="resume-btn">Download Resume</a>
+    <!-- Animated SVG Network Diagram -->
+    <div class="hero-right">
+      <svg class="net-diagram" viewBox="0 0 420 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#00d4ff" opacity="0.6"/>
+          </marker>
+        </defs>
+
+        <!-- Lines -->
+        <g stroke="#00d4ff" stroke-width="1" stroke-dasharray="6 4" opacity="0.4">
+          <!-- cloud to firewall -->
+          <line x1="210" y1="60" x2="210" y2="110" class="animated-dash"/>
+          <!-- firewall to router -->
+          <line x1="210" y1="150" x2="210" y2="190"/>
+          <!-- router to switch -->
+          <line x1="210" y1="230" x2="210" y2="270"/>
+          <!-- switch to pc1 -->
+          <line x1="185" y1="285" x2="120" y2="315"/>
+          <!-- switch to pc2 -->
+          <line x1="210" y1="290" x2="210" y2="320"/>
+          <!-- switch to pc3 -->
+          <line x1="235" y1="285" x2="300" y2="315"/>
+          <!-- firewall to server -->
+          <line x1="250" y1="130" x2="340" y2="130"/>
+        </g>
+
+        <!-- Cloud / AWS -->
+        <g filter="url(#glow)" transform="translate(175,30)">
+          <rect width="70" height="38" rx="19" fill="#1a2540" stroke="#00d4ff" stroke-width="1.5"/>
+          <text x="35" y="22" text-anchor="middle" font-size="11" fill="#00d4ff" font-family="JetBrains Mono">☁ AWS</text>
+        </g>
+
+        <!-- Firewall -->
+        <g transform="translate(175,110)">
+          <rect width="70" height="38" rx="8" fill="#1a2540" stroke="#ff6b35" stroke-width="1.5"/>
+          <text x="35" y="22" text-anchor="middle" font-size="10" fill="#ff6b35" font-family="JetBrains Mono">🔥 FW</text>
+        </g>
+
+        <!-- Router -->
+        <g transform="translate(175,190)">
+          <rect width="70" height="38" rx="8" fill="#1a2540" stroke="#00d4ff" stroke-width="1.5"/>
+          <text x="35" y="22" text-anchor="middle" font-size="10" fill="#00d4ff" font-family="JetBrains Mono">⬡ Router</text>
+        </g>
+
+        <!-- Switch -->
+        <g transform="translate(175,268)">
+          <rect width="70" height="30" rx="6" fill="#1a2540" stroke="#7b5ea7" stroke-width="1.5"/>
+          <text x="35" y="19" text-anchor="middle" font-size="10" fill="#7b5ea7" font-family="JetBrains Mono">⇌ SW</text>
+        </g>
+
+        <!-- Server (right) -->
+        <g transform="translate(320,111)">
+          <rect width="70" height="36" rx="8" fill="#1a2540" stroke="#00ff88" stroke-width="1.5"/>
+          <text x="35" y="21" text-anchor="middle" font-size="10" fill="#00ff88" font-family="JetBrains Mono">🖥 Server</text>
+        </g>
+
+        <!-- PCs -->
+        <g transform="translate(80,313)">
+          <rect width="52" height="26" rx="5" fill="#131c35" stroke="#00d4ff" stroke-width="1"/>
+          <text x="26" y="17" text-anchor="middle" font-size="9" fill="#8892a4" font-family="JetBrains Mono">PC1</text>
+        </g>
+        <g transform="translate(184,318)">
+          <rect width="52" height="26" rx="5" fill="#131c35" stroke="#00d4ff" stroke-width="1"/>
+          <text x="26" y="17" text-anchor="middle" font-size="9" fill="#8892a4" font-family="JetBrains Mono">PC2</text>
+        </g>
+        <g transform="translate(284,313)">
+          <rect width="52" height="26" rx="5" fill="#131c35" stroke="#00d4ff" stroke-width="1"/>
+          <text x="26" y="17" text-anchor="middle" font-size="9" fill="#8892a4" font-family="JetBrains Mono">PC3</text>
+        </g>
+
+        <!-- Kali Linux chip -->
+        <g transform="translate(25,110)">
+          <rect width="85" height="38" rx="8" fill="#1a2540" stroke="#7b5ea7" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="42" y="23" text-anchor="middle" font-size="9.5" fill="#7b5ea7" font-family="JetBrains Mono">🐉 Kali Linux</text>
+        </g>
+        <line x1="110" y1="129" x2="175" y2="129" stroke="#7b5ea7" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+
+        <!-- Label -->
+        <text x="210" y="16" text-anchor="middle" font-size="9" fill="#8892a4" font-family="JetBrains Mono" letter-spacing="1">NETWORK TOPOLOGY</text>
+
+        <!-- Animated packet -->
+        <circle r="4" fill="#00ff88" opacity="0.9" filter="url(#glow)">
+          <animateMotion dur="4s" repeatCount="indefinite"
+            path="M210,60 L210,150 L210,230 L185,285 L120,320"/>
+        </circle>
+        <circle r="3" fill="#00d4ff" opacity="0.8" filter="url(#glow)">
+          <animateMotion dur="5s" repeatCount="indefinite" begin="1.5s"
+            path="M210,60 L210,150 L250,130 L340,130"/>
+        </circle>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label reveal">// about.me</div>
+    <h2 class="section-title reveal">Who Am <span>I?</span></h2>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>I'm <strong>Manoj Mikey</strong>, a B.Tech ECE graduate from Hyderabad with a deep passion for Networking and Cybersecurity. I don't just study concepts — I <strong>build real labs, break things, and fix them</strong>.</p>
+        <p>From configuring multi-area OSPF in GNS3 to deploying Linux servers on AWS EC2, I love getting my hands dirty with real-world scenarios. I'm currently sharpening my skills in <strong>AWS Cloud, Python automation, and SOC operations</strong>.</p>
+        <p>My goal: land a role as a <strong>Network/Security Engineer</strong> where I can protect infrastructure, automate workflows, and keep growing every single day.</p>
+      </div>
+      <div class="about-cards">
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-card-label">Location</div>
+            <div class="info-card-value">Hyderabad, India</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🎓</div>
+          <div>
+            <div class="info-card-label">Education</div>
+            <div class="info-card-value">B.Tech ECE · 2022–2026</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">✉️</div>
+          <div>
+            <div class="info-card-label">Email</div>
+            <div class="info-card-value">manojmikey2002@gmail.com</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🔗</div>
+          <div>
+            <div class="info-card-label">LinkedIn</div>
+            <div class="info-card-value">linkedin.com/in/manoj-mikey</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🐙</div>
+          <div>
+            <div class="info-card-label">GitHub</div>
+            <div class="info-card-value">github.com/manojmikey</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="max-width:1200px;">
+    <div class="section-label reveal">// skills.json</div>
+    <h2 class="section-title reveal">Technical <span>Skills</span></h2>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <span class="skill-icon">🌐</span>
+        <div class="skill-name">Networking</div>
+        <div class="skill-level"><div class="skill-bar" style="width:90%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🐧</span>
+        <div class="skill-name">Linux</div>
+        <div class="skill-level"><div class="skill-bar" style="width:85%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">📡</span>
+        <div class="skill-name">Cisco / CCNA</div>
+        <div class="skill-level"><div class="skill-bar" style="width:90%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🦈</span>
+        <div class="skill-name">Wireshark</div>
+        <div class="skill-level"><div class="skill-bar" style="width:80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🐉</span>
+        <div class="skill-name">Kali Linux</div>
+        <div class="skill-level"><div class="skill-bar" style="width:75%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">☁️</span>
+        <div class="skill-name">AWS</div>
+        <div class="skill-level"><div class="skill-bar" style="width:70%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🐍</span>
+        <div class="skill-name">Python</div>
+        <div class="skill-level"><div class="skill-bar" style="width:70%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🔥</span>
+        <div class="skill-name">iptables / UFW</div>
+        <div class="skill-level"><div class="skill-bar" style="width:80%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🖧</span>
+        <div class="skill-name">GNS3</div>
+        <div class="skill-level"><div class="skill-bar" style="width:85%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">📦</span>
+        <div class="skill-name">Packet Tracer</div>
+        <div class="skill-level"><div class="skill-bar" style="width:88%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">💻</span>
+        <div class="skill-name">Bash</div>
+        <div class="skill-level"><div class="skill-bar" style="width:75%"></div></div>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🗂️</span>
+        <div class="skill-name">Git</div>
+        <div class="skill-level"><div class="skill-bar" style="width:72%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" style="max-width:1200px;">
+    <div class="section-label reveal">// projects.list</div>
+    <h2 class="section-title reveal">Featured <span>Projects</span></h2>
+    <div class="projects-grid reveal">
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon" style="background:rgba(0,212,255,0.1);">🖧</div>
+          <div class="project-links">
+            <a href="https://github.com/manojmikey/enterprise-ospf-lab" target="_blank" class="project-link">GitHub →</a>
+          </div>
+        </div>
+        <div class="project-name">Enterprise OSPF Lab</div>
+        <div class="project-desc">Multi-area OSPF configuration in GNS3 with full documentation and troubleshooting. Simulates real enterprise routing architecture.</div>
+        <div class="project-tags">
+          <span class="tag">GNS3</span><span class="tag">OSPF</span><span class="tag">Routing</span><span class="tag">Cisco</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon" style="background:rgba(255,107,53,0.1);">🔥</div>
+          <div class="project-links">
+            <a href="https://github.com/manojmikey/linux-firewall-lab" target="_blank" class="project-link">GitHub →</a>
+          </div>
+        </div>
+        <div class="project-name">Linux Firewall Lab</div>
+        <div class="project-desc">Firewall configuration using UFW and iptables with real-world scenarios. Tested traffic filtering for TCP/IP protocols.</div>
+        <div class="project-tags">
+          <span class="tag">Linux</span><span class="tag">iptables</span><span class="tag">UFW</span><span class="tag">Security</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon" style="background:rgba(0,255,136,0.1);">🦈</div>
+          <div class="project-links">
+            <a href="https://github.com/manojmikey/packet-analysis-wireshark" target="_blank" class="project-link">GitHub →</a>
+          </div>
+        </div>
+        <div class="project-name">Packet Analysis</div>
+        <div class="project-desc">Captured and analyzed packets using Wireshark. Covered TCP, UDP, ICMP, DNS, ARP — documented findings with screenshots.</div>
+        <div class="project-tags">
+          <span class="tag">Wireshark</span><span class="tag">TCP/IP</span><span class="tag">Analysis</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon" style="background:rgba(255,153,0,0.1);">☁️</div>
+          <div class="project-links">
+            <a href="https://github.com/manojmikey/aws-linux-server" target="_blank" class="project-link">GitHub →</a>
+          </div>
+        </div>
+        <div class="project-name">AWS Linux Server</div>
+        <div class="project-desc">Deployed Linux server on AWS EC2, configured Security Groups, hosted a web application. Practiced cloud networking fundamentals.</div>
+        <div class="project-tags">
+          <span class="tag">AWS</span><span class="tag">EC2</span><span class="tag">Security Groups</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon" style="background:rgba(123,94,167,0.1);">🐍</div>
+          <div class="project-links">
+            <a href="https://github.com/manojmikey/network-automation-python" target="_blank" class="project-link">GitHub →</a>
+          </div>
+        </div>
+        <div class="project-name">Network Automation (Python)</div>
+        <div class="project-desc">Python scripts for network automation and device configuration. Automates repetitive tasks to boost efficiency in network management.</div>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">Automation</span><span class="tag">Networking</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon" style="background:rgba(123,94,167,0.1);">🐉</div>
+          <div class="project-links">
+            <a href="https://github.com/manojmikey/kali-linux-labs" target="_blank" class="project-link">GitHub →</a>
+          </div>
+        </div>
+        <div class="project-name">Kali Linux Labs</div>
+        <div class="project-desc">Penetration testing labs covering reconnaissance, enumeration, and exploitation techniques. Practised on TryHackMe machines.</div>
+        <div class="project-tags">
+          <span class="tag">Kali Linux</span><span class="tag">Pentesting</span><span class="tag">TryHackMe</span>
+        </div>
+      </div>
 
     </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" style="max-width:1200px;">
+    <div class="section-label reveal">// certs.verified</div>
+    <h2 class="section-title reveal">Certifications &amp; <span>Achievements</span></h2>
+    <div class="certs-grid reveal">
+      <div class="cert-card">
+        <span class="cert-badge">📡</span>
+        <div class="cert-name">CCNA</div>
+        <div class="cert-org">Cisco Certified Network Associate</div>
+        <span class="cert-status done">✓ Certified</span>
+      </div>
+      <div class="cert-card">
+        <span class="cert-badge">🎯</span>
+        <div class="cert-name">TryHackMe</div>
+        <div class="cert-org">Top 10% Global Ranking</div>
+        <span class="cert-status done">✓ Achieved</span>
+      </div>
+      <div class="cert-card">
+        <span class="cert-badge">☁️</span>
+        <div class="cert-name">AWS Cloud Practitioner</div>
+        <div class="cert-org">Amazon Web Services</div>
+        <span class="cert-status progress">⏳ In Progress</span>
+      </div>
+      <div class="cert-card">
+        <span class="cert-badge">🐧</span>
+        <div class="cert-name">Linux Essentials</div>
+        <div class="cert-org">Linux Professional Institute</div>
+        <span class="cert-status progress">⏳ In Progress</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label reveal">// contact.init()</div>
+    <h2 class="section-title reveal">Let's <span>Connect</span></h2>
+    <div class="contact-wrap reveal">
+      <div class="contact-info">
+        <p>I'm actively looking for opportunities in Networking, Cybersecurity, and Cloud. If you're hiring or want to collaborate, I'd love to hear from you!</p>
+        <div class="contact-links">
+          <a href="mailto:manojmikey2002@gmail.com" class="contact-link">
+            <span class="contact-link-icon">✉️</span> manojmikey2002@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/manoj-mikey" target="_blank" class="contact-link">
+            <span class="contact-link-icon">🔗</span> linkedin.com/in/manoj-mikey
+          </a>
+          <a href="https://github.com/manojmikey" target="_blank" class="contact-link">
+            <span class="contact-link-icon">🐙</span> github.com/manojmikey
+          </a>
+          <a href="https://tryhackme.com/p/manojmikey" target="_blank" class="contact-link">
+            <span class="contact-link-icon">🎯</span> TryHackMe Profile
+          </a>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Recruiter Name" required/>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="hr@company.com" required/>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea rows="4" placeholder="Tell me about the role..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message 🚀</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    Built with ❤️ by <span>Manoj Mikey</span> · Network Engineer &amp; Cybersecurity Enthusiast · Hyderabad, India
+  </footer>
 
 </div>
 
-</section>
+<script>
+  // Animated network background
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], animId;
 
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function initNodes() {
+    nodes = [];
+    const count = Math.floor((W * H) / 18000);
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        r: Math.random() * 2 + 1
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,212,255,0.6)';
+      ctx.fill();
+
+      nodes.forEach(m => {
+        const dx = n.x - m.x, dy = n.y - m.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 130) {
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(m.x, m.y);
+          ctx.strokeStyle = `rgba(0,212,255,${0.15 * (1 - dist/130)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      });
+    });
+    animId = requestAnimationFrame(draw);
+  }
+
+  resize(); initNodes(); draw();
+  window.addEventListener('resize', () => { resize(); initNodes(); });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '✅ Message Sent!';
+    btn.style.background = 'linear-gradient(135deg, #00ff88, #00cc66)';
+    setTimeout(() => {
+      btn.textContent = 'Send Message 🚀';
+      btn.style.background = '';
+      e.target.reset();
+    }, 3000);
+  }
+</script>
 </body>
 </html>
